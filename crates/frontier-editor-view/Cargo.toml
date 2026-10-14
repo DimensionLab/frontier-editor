@@ -1,4 +1,5 @@
 [package]
+workspace = "../.."
 name = "frontier-editor-view"
 description = "GPU (wgpu) text view for the Frontier editor core: virtualised rendering of documents, diffs and multi-million-line logs with a glyph atlas, drawn into the host's render pass"
 version.workspace = true

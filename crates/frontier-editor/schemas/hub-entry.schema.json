@@ -41,10 +41,7 @@
           "title": "Notes"
         }
       },
-      "required": [
-        "type",
-        "url"
-      ],
+      "required": ["type", "url"],
       "title": "ApiSource",
       "type": "object"
     },
@@ -200,11 +197,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "type",
-        "server",
-        "doi"
-      ],
+      "required": ["type", "server", "doi"],
       "title": "DataverseSource",
       "type": "object"
     },
@@ -233,10 +226,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "type",
-        "bucket"
-      ],
+      "required": ["type", "bucket"],
       "title": "GcsSource",
       "type": "object"
     },
@@ -317,10 +307,7 @@
           "type": "boolean"
         }
       },
-      "required": [
-        "type",
-        "url"
-      ],
+      "required": ["type", "url"],
       "title": "GitSource",
       "type": "object"
     },
@@ -356,10 +343,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "type",
-        "repo"
-      ],
+      "required": ["type", "repo"],
       "title": "GithubReleaseSource",
       "type": "object"
     },
@@ -405,10 +389,7 @@
           "title": "Notes"
         }
       },
-      "required": [
-        "type",
-        "endpoint"
-      ],
+      "required": ["type", "endpoint"],
       "title": "GlobusSource",
       "type": "object"
     },
@@ -452,9 +433,7 @@
           "title": "Notes"
         }
       },
-      "required": [
-        "type"
-      ],
+      "required": ["type"],
       "title": "HttpSource",
       "type": "object"
     },
@@ -472,11 +451,7 @@
         },
         "repo_type": {
           "default": "dataset",
-          "enum": [
-            "dataset",
-            "model",
-            "space"
-          ],
+          "enum": ["dataset", "model", "space"],
           "title": "Repo Type",
           "type": "string"
         },
@@ -505,10 +480,7 @@
           "type": "boolean"
         }
       },
-      "required": [
-        "type",
-        "repo"
-      ],
+      "required": ["type", "repo"],
       "title": "HuggingFaceSource",
       "type": "object"
     },
@@ -537,10 +509,7 @@
           "title": "Notes"
         }
       },
-      "required": [
-        "type",
-        "dataset"
-      ],
+      "required": ["type", "dataset"],
       "title": "KaggleSource",
       "type": "object"
     },
@@ -592,10 +561,7 @@
           "title": "Notes"
         }
       },
-      "required": [
-        "spdx",
-        "commercial_use"
-      ],
+      "required": ["spdx", "commercial_use"],
       "title": "License",
       "type": "object"
     },
@@ -629,10 +595,7 @@
           "title": "Frontier Eval Metric"
         }
       },
-      "required": [
-        "name",
-        "definition"
-      ],
+      "required": ["name", "definition"],
       "title": "MetricDef",
       "type": "object"
     },
@@ -803,19 +766,12 @@
         },
         "finetune": {
           "default": "untested",
-          "enum": [
-            "verified",
-            "loadable",
-            "untested",
-            "unavailable"
-          ],
+          "enum": ["verified", "loadable", "untested", "unavailable"],
           "title": "Finetune",
           "type": "string"
         }
       },
-      "required": [
-        "architecture"
-      ],
+      "required": ["architecture"],
       "title": "ModelInfo",
       "type": "object"
     },
@@ -929,9 +885,7 @@
           "title": "Sha256"
         }
       },
-      "required": [
-        "name"
-      ],
+      "required": ["name"],
       "title": "ObtainFile",
       "type": "object"
     },
@@ -960,12 +914,7 @@
         "temporal": {
           "anyOf": [
             {
-              "enum": [
-                "steady",
-                "transient",
-                "static",
-                "mixed"
-              ],
+              "enum": ["steady", "transient", "static", "mixed"],
               "type": "string"
             },
             {
@@ -1035,12 +984,7 @@
           "title": "Note"
         }
       },
-      "required": [
-        "model",
-        "metric",
-        "value",
-        "source"
-      ],
+      "required": ["model", "metric", "value", "source"],
       "title": "ReferenceResult",
       "type": "object"
     },
@@ -1103,10 +1047,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "type",
-        "bucket"
-      ],
+      "required": ["type", "bucket"],
       "title": "S3Source",
       "type": "object"
     },
@@ -1241,9 +1182,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "id"
-      ],
+      "required": ["id"],
       "title": "Subset",
       "type": "object"
     },
@@ -1361,10 +1300,7 @@
           "title": "Command"
         }
       },
-      "required": [
-        "date",
-        "subset"
-      ],
+      "required": ["date", "subset"],
       "title": "Verified",
       "type": "object"
     },
@@ -1400,10 +1336,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "type",
-        "record"
-      ],
+      "required": ["type", "record"],
       "title": "ZenodoSource",
       "type": "object"
     }
@@ -1419,12 +1352,7 @@
       "type": "string"
     },
     "kind": {
-      "enum": [
-        "dataset",
-        "benchmark",
-        "collection",
-        "model"
-      ],
+      "enum": ["dataset", "benchmark", "collection", "model"],
       "title": "Kind",
       "type": "string"
     },
@@ -1624,10 +1552,7 @@
     "conversion": {
       "anyOf": [
         {
-          "enum": [
-            "supported",
-            "listing-only"
-          ],
+          "enum": ["supported", "listing-only"],
           "type": "string"
         },
         {
@@ -1665,10 +1590,7 @@
     },
     "status": {
       "default": "listed",
-      "enum": [
-        "verified",
-        "listed"
-      ],
+      "enum": ["verified", "listed"],
       "title": "Status",
       "type": "string"
     },
@@ -1770,13 +1692,6 @@
       "title": "Checked"
     }
   },
-  "required": [
-    "id",
-    "name",
-    "kind",
-    "domain",
-    "license",
-    "homepage"
-  ],
+  "required": ["id", "name", "kind", "domain", "license", "homepage"],
   "type": "object"
 }

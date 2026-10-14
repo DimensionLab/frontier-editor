@@ -75,11 +75,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "model",
-        "metric",
-        "value"
-      ],
+      "required": ["model", "metric", "value"],
       "title": "Reference",
       "type": "object"
     },
@@ -235,11 +231,7 @@
       "type": "string"
     },
     "task": {
-      "enum": [
-        "surface_field",
-        "integral",
-        "rollout"
-      ],
+      "enum": ["surface_field", "integral", "rollout"],
       "title": "Task",
       "type": "string"
     },
@@ -314,10 +306,7 @@
     "tier_direction": {
       "anyOf": [
         {
-          "enum": [
-            "lower",
-            "higher"
-          ],
+          "enum": ["lower", "higher"],
           "type": "string"
         },
         {
@@ -342,10 +331,7 @@
     "loads": {
       "anyOf": [
         {
-          "enum": [
-            "airfoil2d",
-            "heatsink"
-          ],
+          "enum": ["airfoil2d", "heatsink"],
           "type": "string"
         },
         {
@@ -405,10 +391,7 @@
     },
     "status": {
       "default": "implemented",
-      "enum": [
-        "implemented",
-        "spec-only"
-      ],
+      "enum": ["implemented", "spec-only"],
       "title": "Status",
       "type": "string"
     },
@@ -425,10 +408,6 @@
       "type": "array"
     }
   },
-  "required": [
-    "name",
-    "dataset_family",
-    "task"
-  ],
+  "required": ["name", "dataset_family", "task"],
   "type": "object"
 }

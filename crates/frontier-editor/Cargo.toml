@@ -1,4 +1,5 @@
 [package]
+workspace = "../.."
 name = "frontier-editor"
 description = "Host-agnostic editor core: rope document, multi-cursor selections, undo tree, tree-sitter syntax, hunks with per-hunk accept/reject, JSON-Schema diagnostics and provenance events"
 version.workspace = true

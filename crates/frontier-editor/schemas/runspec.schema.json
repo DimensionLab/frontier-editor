@@ -6,9 +6,7 @@
   "description": "A Frontier RunSpec (`frontier run -f runspec.yaml`): what to run, on what data, with which resources.",
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "task"
-  ],
+  "required": ["task"],
   "properties": {
     "apiVersion": {
       "type": "string",
@@ -25,14 +23,7 @@
     },
     "task": {
       "type": "string",
-      "enum": [
-        "train",
-        "ingest",
-        "eval",
-        "predict",
-        "pipeline",
-        "hub-pull"
-      ]
+      "enum": ["train", "ingest", "eval", "predict", "pipeline", "hub-pull"]
     },
     "config": {
       "type": "string",
@@ -94,32 +85,16 @@
   "$defs": {
     "Task": {
       "type": "string",
-      "enum": [
-        "train",
-        "ingest",
-        "eval",
-        "predict",
-        "pipeline",
-        "hub-pull"
-      ]
+      "enum": ["train", "ingest", "eval", "predict", "pipeline", "hub-pull"]
     },
     "StepSpec": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "task"
-      ],
+      "required": ["task"],
       "properties": {
         "task": {
           "type": "string",
-          "enum": [
-            "train",
-            "ingest",
-            "eval",
-            "predict",
-            "pipeline",
-            "hub-pull"
-          ]
+          "enum": ["train", "ingest", "eval", "predict", "pipeline", "hub-pull"]
         },
         "name": {
           "type": "string"
@@ -138,18 +113,14 @@
     "DatasetRef": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "path"
-      ],
+      "required": ["path"],
       "properties": {
         "path": {
           "type": "string"
         },
         "source": {
           "type": "object",
-          "required": [
-            "type"
-          ],
+          "required": ["type"],
           "properties": {
             "type": {
               "type": "string",
@@ -173,9 +144,7 @@
                 }
               },
               "then": {
-                "required": [
-                  "file"
-                ],
+                "required": ["file"],
                 "properties": {
                   "file": {
                     "type": "string"
@@ -192,9 +161,7 @@
                 }
               },
               "then": {
-                "required": [
-                  "id"
-                ],
+                "required": ["id"],
                 "properties": {
                   "id": {
                     "type": "string"
@@ -214,10 +181,7 @@
                 }
               },
               "then": {
-                "required": [
-                  "source",
-                  "runs"
-                ],
+                "required": ["source", "runs"],
                 "properties": {
                   "source": {
                     "type": "string"
@@ -240,20 +204,11 @@
     },
     "DatasetSource": {
       "type": "object",
-      "required": [
-        "type"
-      ],
+      "required": ["type"],
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "auto",
-            "existing",
-            "pipeline",
-            "hub",
-            "ingest",
-            "upload"
-          ]
+          "enum": ["auto", "existing", "pipeline", "hub", "ingest", "upload"]
         }
       },
       "allOf": [
@@ -266,9 +221,7 @@
             }
           },
           "then": {
-            "required": [
-              "file"
-            ],
+            "required": ["file"],
             "properties": {
               "file": {
                 "type": "string"
@@ -285,9 +238,7 @@
             }
           },
           "then": {
-            "required": [
-              "id"
-            ],
+            "required": ["id"],
             "properties": {
               "id": {
                 "type": "string"
@@ -307,10 +258,7 @@
             }
           },
           "then": {
-            "required": [
-              "source",
-              "runs"
-            ],
+            "required": ["source", "runs"],
             "properties": {
               "source": {
                 "type": "string"
@@ -378,13 +326,7 @@
         },
         "role": {
           "type": "string",
-          "enum": [
-            "training",
-            "inference",
-            "rendering",
-            "prep",
-            "any"
-          ]
+          "enum": ["training", "inference", "rendering", "prep", "any"]
         },
         "nodes": {
           "type": "integer",

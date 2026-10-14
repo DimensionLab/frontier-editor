@@ -6,13 +6,7 @@
   "description": "A node pipeline exported from the canvas (`frontier-pipeline` v1).",
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "format",
-    "version",
-    "name",
-    "nodes",
-    "edges"
-  ],
+  "required": ["format", "version", "name", "nodes", "edges"],
   "properties": {
     "format": {
       "const": "frontier-pipeline"
@@ -28,10 +22,7 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "id",
-          "kind"
-        ],
+        "required": ["id", "kind"],
         "properties": {
           "id": {
             "type": "string"
@@ -50,10 +41,7 @@
           },
           "position": {
             "type": "object",
-            "required": [
-              "x",
-              "y"
-            ],
+            "required": ["x", "y"],
             "properties": {
               "x": {
                 "type": "number"
@@ -71,12 +59,7 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "from",
-          "from_port",
-          "to",
-          "to_port"
-        ],
+        "required": ["from", "from_port", "to", "to_port"],
         "properties": {
           "from": {
             "type": "string"

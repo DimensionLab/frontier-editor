@@ -18,20 +18,18 @@ view.prepare(&device, &queue, surface_format, 1, &Placement { scale: board_zoom,
 view.render(&mut pass);
 ```
 
-
-
 ## Host contract
 
-| Topic | Behaviour |
-|-------|-----------|
-| Rendering | One pipeline and one instanced draw per view. `render` sets a scissor to the view's rectangle and draws into the host's pass, so the view shares the device with other viewers. |
-| Virtualisation | Only the rows in the viewport are shaped and drawn. Documents come from `Editor::view_state`, logs from the core's `ChunkedDocument`. |
-| Frames | `prepare(now_ms)` drives smooth scrolling and cursor blink. `needs_redraw(now)` says when another frame is wanted. |
-| Zoom | `Placement::scale` re-rasterises glyphs at device pixel ratio × zoom; bitmaps are not scaled. |
-| Text input | `InputEvent::Text` and `InputEvent::Composition*` come from a platform text field: a hidden `<textarea>` on the web, IME events natively. Keys handled by the core keymap arrive as `InputEvent::Key`. `HostInput` documents the overlay contract. |
-| Review | `Editor::review(proposed)` switches to review mode. The view shows inline or side-by-side hunks with accept and reject regions. `Cmd/Ctrl+Enter` returns `HostRequest::Apply`; the host calls `finish_review(approver)` and receives the `ApprovalEvent`. |
-| Minimap | A per-line summary with diagnostics and hunks as marks. Clicks and drags scroll. |
-| Web | Feature `web` exports `WebEditor` for `wasm32-unknown-unknown`. |
+| Topic          | Behaviour                                                                                                                                                                                                                                                 |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Rendering      | One pipeline and one instanced draw per view. `render` sets a scissor to the view's rectangle and draws into the host's pass, so the view shares the device with other viewers.                                                                           |
+| Virtualisation | Only the rows in the viewport are shaped and drawn. Documents come from `Editor::view_state`, logs from the core's `ChunkedDocument`.                                                                                                                     |
+| Frames         | `prepare(now_ms)` drives smooth scrolling and cursor blink. `needs_redraw(now)` says when another frame is wanted.                                                                                                                                        |
+| Zoom           | `Placement::scale` re-rasterises glyphs at device pixel ratio × zoom; bitmaps are not scaled.                                                                                                                                                             |
+| Text input     | `InputEvent::Text` and `InputEvent::Composition*` come from a platform text field: a hidden `<textarea>` on the web, IME events natively. Keys handled by the core keymap arrive as `InputEvent::Key`. `HostInput` documents the overlay contract.        |
+| Review         | `Editor::review(proposed)` switches to review mode. The view shows inline or side-by-side hunks with accept and reject regions. `Cmd/Ctrl+Enter` returns `HostRequest::Apply`; the host calls `finish_review(approver)` and receives the `ApprovalEvent`. |
+| Minimap        | A per-line summary with diagnostics and hunks as marks. Clicks and drags scroll.                                                                                                                                                                          |
+| Web            | Feature `web` exports `WebEditor` for `wasm32-unknown-unknown`.                                                                                                                                                                                           |
 
 Text is shaped and rasterised with `cosmic-text` (MIT/Apache-2.0) into a glyph atlas with
 subpixel positioning. The embedded font is DejaVu Sans Mono (`assets/`, Bitstream Vera
@@ -39,10 +37,10 @@ licence, `assets/LICENSE_DEJAVU`), so web and native builds shape text identical
 
 ## Demos
 
-| Demo | Command |
-|------|---------|
-| Native | `cargo run -p frontier-editor-view --release --example native -- [file \| --log \| --review]` |
-| Web (WebGPU) | `demo/build.sh --serve`, then <http://localhost:8765/> |
+| Demo         | Command                                                                                       |
+| ------------ | --------------------------------------------------------------------------------------------- |
+| Native       | `cargo run -p frontier-editor-view --release --example native -- [file \| --log \| --review]` |
+| Web (WebGPU) | `demo/build.sh --serve`, then <http://localhost:8765/>                                        |
 
 Native keys: `F2` theme, `F3` side-by-side diff, `F5` host zoom, `Cmd/Ctrl+S` prints the
 `EditEvent`, `Cmd/Ctrl+Enter` applies accepted hunks.
