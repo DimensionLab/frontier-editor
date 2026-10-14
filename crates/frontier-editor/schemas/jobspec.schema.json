@@ -6,7 +6,12 @@
   "description": "A JobSpec as submitted to POST /api/v1/jobs (`{\"spec\": JobSpec}`).",
   "type": "object",
   "additionalProperties": false,
-  "required": ["name", "image", "command", "backend"],
+  "required": [
+    "name",
+    "image",
+    "command",
+    "backend"
+  ],
   "properties": {
     "id": {
       "type": "string"
@@ -60,7 +65,10 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["uri", "path"],
+        "required": [
+          "uri",
+          "path"
+        ],
         "properties": {
           "uri": {
             "type": "string"
@@ -73,7 +81,13 @@
     },
     "backend": {
       "type": "string",
-      "enum": ["local", "runpod", "anyscale", "slurm", "k8s"]
+      "enum": [
+        "local",
+        "runpod",
+        "anyscale",
+        "slurm",
+        "k8s"
+      ]
     },
     "compute": {}
   }

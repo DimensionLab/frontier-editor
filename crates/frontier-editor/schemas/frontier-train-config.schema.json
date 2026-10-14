@@ -10,7 +10,9 @@
         "const": "transient"
       }
     },
-    "required": ["task"]
+    "required": [
+      "task"
+    ]
   },
   "then": {
     "title": "Transient",
@@ -54,7 +56,9 @@
         "default": null
       }
     },
-    "required": ["data"],
+    "required": [
+      "data"
+    ],
     "type": "object"
   },
   "else": {
@@ -62,7 +66,11 @@
     "properties": {
       "task": {
         "default": "surface",
-        "enum": ["surface", "finetune", "finetune-compare"],
+        "enum": [
+          "surface",
+          "finetune",
+          "finetune-compare"
+        ],
         "title": "Task",
         "type": "string"
       },
@@ -96,7 +104,9 @@
         "$ref": "#/$defs/TrainConfig"
       }
     },
-    "required": ["data"],
+    "required": [
+      "data"
+    ],
     "type": "object"
   },
   "$defs": {
@@ -180,7 +190,11 @@
         },
         "field_location": {
           "default": "auto",
-          "enum": ["auto", "point", "cell"],
+          "enum": [
+            "auto",
+            "point",
+            "cell"
+          ],
           "title": "Field Location",
           "type": "string"
         },
@@ -350,7 +364,9 @@
           "type": "integer"
         }
       },
-      "required": ["path"],
+      "required": [
+        "path"
+      ],
       "title": "DataConfig",
       "type": "object"
     },
@@ -449,7 +465,10 @@
         },
         "normalization": {
           "default": "refit",
-          "enum": ["refit", "base"],
+          "enum": [
+            "refit",
+            "base"
+          ],
           "title": "Normalization",
           "type": "string"
         },
@@ -573,7 +592,10 @@
         },
         "p_loss": {
           "default": "rel_l2",
-          "enum": ["rel_l2", "mse"],
+          "enum": [
+            "rel_l2",
+            "mse"
+          ],
           "title": "P Loss",
           "type": "string"
         }
@@ -605,7 +627,7 @@
           "type": "number"
         },
         "min_lr": {
-          "default": 1e-5,
+          "default": 1e-05,
           "title": "Min Lr",
           "type": "number"
         },
@@ -615,7 +637,10 @@
           "type": "number"
         },
         "betas": {
-          "default": [0.9, 0.999],
+          "default": [
+            0.9,
+            0.999
+          ],
           "maxItems": 2,
           "minItems": 2,
           "prefixItems": [
@@ -641,7 +666,10 @@
         },
         "schedule": {
           "default": "cosine",
-          "enum": ["cosine", "constant"],
+          "enum": [
+            "cosine",
+            "constant"
+          ],
           "title": "Schedule",
           "type": "string"
         }
@@ -778,7 +806,9 @@
           "type": "array"
         }
       },
-      "required": ["at_epoch"],
+      "required": [
+        "at_epoch"
+      ],
       "title": "UnfreezeStep",
       "type": "object"
     },
@@ -830,7 +860,10 @@
       "properties": {
         "mode": {
           "default": "fixed",
-          "enum": ["fixed", "random"],
+          "enum": [
+            "fixed",
+            "random"
+          ],
           "title": "Mode",
           "type": "string"
         },
@@ -1106,7 +1139,9 @@
           "title": "Synthetic"
         }
       },
-      "required": ["path"],
+      "required": [
+        "path"
+      ],
       "title": "TransientDataConfig",
       "type": "object"
     },
@@ -1114,13 +1149,19 @@
       "properties": {
         "kind": {
           "default": "rel_l2",
-          "enum": ["rel_l2", "mse"],
+          "enum": [
+            "rel_l2",
+            "mse"
+          ],
           "title": "Kind",
           "type": "string"
         },
         "predict": {
           "default": "delta",
-          "enum": ["delta", "state"],
+          "enum": [
+            "delta",
+            "state"
+          ],
           "title": "Predict",
           "type": "string"
         },
@@ -1154,7 +1195,11 @@
         },
         "mode": {
           "default": "bptt",
-          "enum": ["bptt", "detach", "pushforward"],
+          "enum": [
+            "bptt",
+            "detach",
+            "pushforward"
+          ],
           "title": "Mode",
           "type": "string"
         },

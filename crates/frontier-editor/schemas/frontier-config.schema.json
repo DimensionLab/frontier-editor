@@ -42,7 +42,11 @@
         "mode": {
           "default": "none",
           "description": "`none`: single-user, every request acts as the local administrator (only on a loopback address). `token`: API tokens. `oidc`: people sign in through an OpenID Connect provider; the CLI, workers and CI use API tokens.",
-          "enum": ["none", "token", "oidc"],
+          "enum": [
+            "none",
+            "token",
+            "oidc"
+          ],
           "title": "Authentication mode",
           "type": "string"
         },
@@ -88,7 +92,11 @@
               "type": "object"
             },
             "scopes": {
-              "default": ["openid", "profile", "email"],
+              "default": [
+                "openid",
+                "profile",
+                "email"
+              ],
               "description": "Scopes requested at sign-in; add the one that makes the provider include groups (often `groups`).",
               "items": {
                 "type": "string"
@@ -180,7 +188,11 @@
         "allocation_policy": {
           "default": "topology",
           "description": "How devices are picked for a job inside a pool: `topology` (same node first, NVLink islands for multi-GPU jobs, then least loaded), `least_loaded` (lowest utilisation and memory use first) or `memory_fit` (the smallest device that fits the request).",
-          "enum": ["topology", "least_loaded", "memory_fit"],
+          "enum": [
+            "topology",
+            "least_loaded",
+            "memory_fit"
+          ],
           "title": "Allocation policy",
           "type": "string"
         },
@@ -193,21 +205,36 @@
         "default_provider": {
           "default": "runpod",
           "description": "Provider used by `frontier cloud up` and `frontier cloud offers` when --provider is not given.",
-          "enum": ["runpod", "anyscale", "local", "slurm"],
+          "enum": [
+            "runpod",
+            "anyscale",
+            "local",
+            "slurm"
+          ],
           "title": "Default cloud provider",
           "type": "string"
         },
         "default_target": {
           "default": "local",
           "description": "Where `frontier run` sends a run when --on is not given.",
-          "enum": ["local", "ssh", "slurm", "k8s", "runpod", "anyscale"],
+          "enum": [
+            "local",
+            "ssh",
+            "slurm",
+            "k8s",
+            "runpod",
+            "anyscale"
+          ],
           "title": "Default target",
           "type": "string"
         },
         "default_tier": {
           "default": "secure",
           "description": "RunPod capacity tier: `secure` (datacentre) or `community` (cheaper, interruptible hosts).",
-          "enum": ["secure", "community"],
+          "enum": [
+            "secure",
+            "community"
+          ],
           "title": "Default cloud tier",
           "type": "string"
         },
@@ -304,7 +331,11 @@
         "cursor_style": {
           "default": "bar",
           "description": "Shape of the caret.",
-          "enum": ["bar", "block", "underline"],
+          "enum": [
+            "bar",
+            "block",
+            "underline"
+          ],
           "title": "Cursor",
           "type": "string"
         },
@@ -351,7 +382,11 @@
         "syntax": {
           "default": "default",
           "description": "`default`: the app's palette. `vivid`: stronger colours. `quiet`: keys and strings only; everything else in the text colour.",
-          "enum": ["default", "vivid", "quiet"],
+          "enum": [
+            "default",
+            "vivid",
+            "quiet"
+          ],
           "title": "Syntax colours",
           "type": "string"
         },
@@ -366,7 +401,11 @@
         "theme": {
           "default": "follow",
           "description": "`follow`: light or dark with the app. `light` or `dark`: always that one.",
-          "enum": ["follow", "light", "dark"],
+          "enum": [
+            "follow",
+            "light",
+            "dark"
+          ],
           "title": "Editor theme",
           "type": "string"
         },
@@ -410,7 +449,10 @@
           "description": "Largest pull that starts without --yes or an explicit --max-bytes.",
           "minimum": 1.0,
           "title": "Download size limit",
-          "type": ["integer", "string"]
+          "type": [
+            "integer",
+            "string"
+          ]
         },
         "mirrors": {
           "default": [],
@@ -441,14 +483,20 @@
           "description": "Upper bound on the memory one read of a dataset or prediction array may need. A store whose metadata declares more is refused instead of loaded, so a hostile or corrupt upload cannot exhaust the server's memory.",
           "minimum": 1048576.0,
           "title": "Largest array read at once",
-          "type": ["integer", "string"]
+          "type": [
+            "integer",
+            "string"
+          ]
         },
         "max_artifact_bytes": {
           "default": 53687091200,
           "description": "Upper bound on one uploaded run artifact (checkpoints, prediction stores, model packages). A larger upload is cut off and removed.",
           "minimum": 1024.0,
           "title": "Largest artifact upload",
-          "type": ["integer", "string"]
+          "type": [
+            "integer",
+            "string"
+          ]
         },
         "max_concurrent_requests": {
           "default": 512,
@@ -470,21 +518,30 @@
           "description": "Largest JSON request (metric batches, job logs) the control plane accepts. Artifact uploads are streamed and not limited by this.",
           "minimum": 1024.0,
           "title": "Request size limit",
-          "type": ["integer", "string"]
+          "type": [
+            "integer",
+            "string"
+          ]
         },
         "max_run_artifact_bytes": {
           "default": 536870912000,
           "description": "Upper bound on the total size of one run's artifacts; an upload that would exceed it is refused. 0 means no bound.",
           "minimum": 0.0,
           "title": "Artifact space per run",
-          "type": ["integer", "string"]
+          "type": [
+            "integer",
+            "string"
+          ]
         },
         "min_free_disk_bytes": {
           "default": 1073741824,
           "description": "Uploads are refused while the data directory's file system has less free space than this, so the database and job logs can still be written. 0 turns the check off.",
           "minimum": 0.0,
           "title": "Free disk space to keep",
-          "type": ["integer", "string"]
+          "type": [
+            "integer",
+            "string"
+          ]
         },
         "request_timeout_secs": {
           "default": 300,
@@ -509,14 +566,23 @@
         "format": {
           "default": "text",
           "description": "`json` writes one JSON object per line for log collectors.",
-          "enum": ["text", "json"],
+          "enum": [
+            "text",
+            "json"
+          ],
           "title": "Log format",
           "type": "string"
         },
         "level": {
           "default": "info",
           "description": "Verbosity of every Frontier process. RUST_LOG, when set, still wins for the Rust binaries.",
-          "enum": ["error", "warn", "info", "debug", "trace"],
+          "enum": [
+            "error",
+            "warn",
+            "info",
+            "debug",
+            "trace"
+          ],
           "title": "Log level",
           "type": "string"
         }
@@ -622,7 +688,10 @@
         "scope": {
           "default": "projects",
           "description": "`mine`: only what you started. `projects`: everything in the projects you may read.",
-          "enum": ["mine", "projects"],
+          "enum": [
+            "mine",
+            "projects"
+          ],
           "title": "Whose events",
           "type": "string"
         },
@@ -638,84 +707,132 @@
             "approvals": {
               "default": "toast",
               "description": "A data-preparation step or an AI agent's plan waits for a decision, or was approved or refused. `toast`: a toast and an entry in the notification centre. `centre`: the entry only. `off`: nothing.",
-              "enum": ["toast", "centre", "off"],
+              "enum": [
+                "toast",
+                "centre",
+                "off"
+              ],
               "title": "Approvals",
               "type": "string"
             },
             "compute": {
               "default": "toast",
               "description": "A worker went offline, a pool has no capacity, or a cloud pod is about to be released. `toast`: a toast and an entry in the notification centre. `centre`: the entry only. `off`: nothing.",
-              "enum": ["toast", "centre", "off"],
+              "enum": [
+                "toast",
+                "centre",
+                "off"
+              ],
               "title": "Compute",
               "type": "string"
             },
             "connection": {
               "default": "toast",
               "description": "The app lost its server or reached it again. `toast`: a toast and an entry in the notification centre. `centre`: the entry only. `off`: nothing.",
-              "enum": ["toast", "centre", "off"],
+              "enum": [
+                "toast",
+                "centre",
+                "off"
+              ],
               "title": "Connection",
               "type": "string"
             },
             "cost": {
               "default": "toast",
               "description": "Spending reached a threshold. `toast`: a toast and an entry in the notification centre. `centre`: the entry only. `off`: nothing.",
-              "enum": ["toast", "centre", "off"],
+              "enum": [
+                "toast",
+                "centre",
+                "off"
+              ],
               "title": "Cost",
               "type": "string"
             },
             "credentials": {
               "default": "toast",
               "description": "A credential expires soon or failed its test. `toast`: a toast and an entry in the notification centre. `centre`: the entry only. `off`: nothing.",
-              "enum": ["toast", "centre", "off"],
+              "enum": [
+                "toast",
+                "centre",
+                "off"
+              ],
               "title": "Credentials",
               "type": "string"
             },
             "datasets": {
               "default": "toast",
               "description": "A dataset import or a data-preparation step finished. `toast`: a toast and an entry in the notification centre. `centre`: the entry only. `off`: nothing.",
-              "enum": ["toast", "centre", "off"],
+              "enum": [
+                "toast",
+                "centre",
+                "off"
+              ],
               "title": "Datasets",
               "type": "string"
             },
             "evaluations": {
               "default": "toast",
               "description": "An evaluation finished, a report is ready, or a quality gate refused a model. `toast`: a toast and an entry in the notification centre. `centre`: the entry only. `off`: nothing.",
-              "enum": ["toast", "centre", "off"],
+              "enum": [
+                "toast",
+                "centre",
+                "off"
+              ],
               "title": "Evaluations and reports",
               "type": "string"
             },
             "jobs": {
               "default": "toast",
               "description": "A job failed, or has been queued for a long time. `toast`: a toast and an entry in the notification centre. `centre`: the entry only. `off`: nothing.",
-              "enum": ["toast", "centre", "off"],
+              "enum": [
+                "toast",
+                "centre",
+                "off"
+              ],
               "title": "Jobs",
               "type": "string"
             },
             "models": {
               "default": "toast",
               "description": "A model version changed stage or was deployed. `toast`: a toast and an entry in the notification centre. `centre`: the entry only. `off`: nothing.",
-              "enum": ["toast", "centre", "off"],
+              "enum": [
+                "toast",
+                "centre",
+                "off"
+              ],
               "title": "Models",
               "type": "string"
             },
             "runs": {
               "default": "toast",
               "description": "A pipeline run or a training run finished or failed. `toast`: a toast and an entry in the notification centre. `centre`: the entry only. `off`: nothing.",
-              "enum": ["toast", "centre", "off"],
+              "enum": [
+                "toast",
+                "centre",
+                "off"
+              ],
               "title": "Runs",
               "type": "string"
             },
             "steps": {
               "default": "toast",
               "description": "A step of a pipeline run failed. `toast`: a toast and an entry in the notification centre. `centre`: the entry only. `off`: nothing.",
-              "enum": ["toast", "centre", "off"],
+              "enum": [
+                "toast",
+                "centre",
+                "off"
+              ],
               "title": "Pipeline steps",
               "type": "string"
             },
             "updates": {
               "default": "toast",
               "description": "A newer version of Frontier is available. `toast`: a toast and an entry in the notification centre. `centre`: the entry only. `off`: nothing.",
-              "enum": ["toast", "centre", "off"],
+              "enum": [
+                "toast",
+                "centre",
+                "off"
+              ],
               "title": "Updates",
               "type": "string"
             }
@@ -739,7 +856,11 @@
         "installer": {
           "default": "auto",
           "description": "Tool that installs plugin wheels: uv when available, else pip.",
-          "enum": ["auto", "uv", "pip"],
+          "enum": [
+            "auto",
+            "uv",
+            "pip"
+          ],
           "title": "Installer",
           "type": "string"
         },
@@ -761,7 +882,9 @@
           "additionalProperties": false,
           "properties": {
             "allowed_providers": {
-              "default": ["local"],
+              "default": [
+                "local"
+              ],
               "description": "Provider ids an agent session or a judge may use: `local` (covers `ollama`, `vllm`, `llamacpp`, `rules`, `nli`), `anthropic`, `openai`, `typesafe`, or `any`.",
               "items": {
                 "enum": [
@@ -805,14 +928,24 @@
             "hosted_provider": {
               "default": "anthropic",
               "description": "The hosted provider for `--hosted` sessions (needs `data_leaves_site` and a credential: `frontier auth login anthropic`).",
-              "enum": ["anthropic", "openai", "typesafe"],
+              "enum": [
+                "anthropic",
+                "openai",
+                "typesafe"
+              ],
               "title": "Hosted provider",
               "type": "string"
             },
             "judge_backend": {
               "default": "auto",
               "description": "`auto` picks TypeSafe when allowed and configured, else the local model when its endpoint answers, else rules; or name one of `local`, `rules`, `nli`, `typesafe`.",
-              "enum": ["auto", "local", "rules", "nli", "typesafe"],
+              "enum": [
+                "auto",
+                "local",
+                "rules",
+                "nli",
+                "typesafe"
+              ],
               "title": "Judge backend",
               "type": "string"
             },
@@ -855,10 +988,24 @@
           "type": "object"
         },
         "allow_cloud_targets": {
-          "default": ["local", "ssh", "slurm", "k8s", "runpod", "anyscale"],
+          "default": [
+            "local",
+            "ssh",
+            "slurm",
+            "k8s",
+            "runpod",
+            "anyscale"
+          ],
           "description": "Targets runs may be sent to. Remove `runpod` and `anyscale` to keep every run on your own machines.",
           "items": {
-            "enum": ["local", "ssh", "slurm", "k8s", "runpod", "anyscale"],
+            "enum": [
+              "local",
+              "ssh",
+              "slurm",
+              "k8s",
+              "runpod",
+              "anyscale"
+            ],
             "type": "string"
           },
           "title": "Allowed compute targets",
@@ -877,7 +1024,9 @@
           "type": "boolean"
         },
         "allowed_dataset_licences": {
-          "default": ["any"],
+          "default": [
+            "any"
+          ],
           "description": "Which hub datasets may be pulled: `any`, `commercial` (licences that permit commercial use), or SPDX identifiers (for example CC-BY-4.0). A dataset must match at least one entry.",
           "items": {
             "type": "string"
@@ -886,7 +1035,9 @@
           "type": "array"
         },
         "compute_allowed_pools": {
-          "default": ["any"],
+          "default": [
+            "any"
+          ],
           "description": "Pools a run or job may ask for: `any`, or pool names. A job that names another pool is refused; `auto` always resolves inside the allowed pools.",
           "items": {
             "type": "string"
@@ -930,7 +1081,12 @@
           "type": "number"
         },
         "plugin_sources": {
-          "default": ["bundled", "pypi", "index", "wheel_dir"],
+          "default": [
+            "bundled",
+            "pypi",
+            "index",
+            "wheel_dir"
+          ],
           "description": "Where plugins may be installed from: `bundled` (shipped with the product), `pypi` (the official index), `index` (the configured `plugins.index_url`), `wheel_dir` (the configured wheel directory), a URL or path prefix, or `any`. The default is the official index plus what an administrator configured; a path, wheel or URL named on a command line needs its prefix listed here (or `any`).",
           "items": {
             "type": "string"
@@ -944,7 +1100,11 @@
             "edit_startup": {
               "default": "local",
               "description": "Who may change the settings a server reads when it starts (listen address, sign-in mode, limits, the secret store) through the API, the app and `frontier config set --on-server`, and restart it from there. `local`: only in single-user mode from this machine, written to the server's own config file. `admin`: any administrator who is signed in. `off`: only by editing the config file.",
-              "enum": ["local", "admin", "off"],
+              "enum": [
+                "local",
+                "admin",
+                "off"
+              ],
               "title": "Start-up settings from the app",
               "type": "string"
             }
@@ -1001,7 +1161,10 @@
             "auth": {
               "default": "managed_identity",
               "description": "`managed_identity` (the identity of the VM, container or AKS pod) or `client_secret` (an app registration: `secrets.azure.tenant_id`, `secrets.azure.client_id`, and the secret from `AZURE_CLIENT_SECRET` or `secrets.azure.credential_file`).",
-              "enum": ["managed_identity", "client_secret"],
+              "enum": [
+                "managed_identity",
+                "client_secret"
+              ],
               "title": "Azure authentication",
               "type": "string"
             },
@@ -1066,7 +1229,10 @@
             "auth": {
               "default": "metadata",
               "description": "`metadata` (the service account of the VM, Cloud Run service or GKE workload identity) or `service_account` (a key file: `secrets.gcp.credential_file`, or `GOOGLE_APPLICATION_CREDENTIALS`).",
-              "enum": ["metadata", "service_account"],
+              "enum": [
+                "metadata",
+                "service_account"
+              ],
               "title": "Google authentication",
               "type": "string"
             },
@@ -1106,14 +1272,23 @@
         "server_backend": {
           "default": "db",
           "description": "Where the control plane keeps the credentials people store on it: `db` (its own database, each value encrypted with the server key), `vault` (HashiCorp Vault, `secrets.vault.*`) or `aws` (AWS Secrets Manager, `secrets.aws.*`). New and changed credentials go to this store; `POST /api/v1/secrets/backend/migrate` moves the existing ones.",
-          "enum": ["db", "vault", "aws", "azure", "gcp"],
+          "enum": [
+            "db",
+            "vault",
+            "aws",
+            "azure",
+            "gcp"
+          ],
           "title": "Control plane credential store",
           "type": "string"
         },
         "server_key": {
           "default": "file",
           "description": "How the key that encrypts the `db` credential store is kept: `file` (the key itself in `secrets.key_file`, or `FRONTIER_SECRET_KEY`) or `aws-kms` (envelope encryption: the file holds a data key wrapped by the KMS key `secrets.aws.kms_key_id`, unwrapped at start-up).",
-          "enum": ["file", "aws-kms"],
+          "enum": [
+            "file",
+            "aws-kms"
+          ],
           "title": "Control plane key protection",
           "type": "string"
         },
@@ -1129,7 +1304,11 @@
             "auth": {
               "default": "token",
               "description": "`token` (from `VAULT_TOKEN` or the credential file), `approle` (role id in `secrets.vault.role`, secret id from `FRONTIER_VAULT_SECRET_ID` or the credential file) or `kubernetes` (the pod's service-account token; role in `secrets.vault.role`).",
-              "enum": ["token", "approle", "kubernetes"],
+              "enum": [
+                "token",
+                "approle",
+                "kubernetes"
+              ],
               "title": "Vault authentication",
               "type": "string"
             },
@@ -1366,14 +1545,21 @@
         "theme": {
           "default": "system",
           "description": "Colour theme of the app and the TUI.",
-          "enum": ["system", "light", "dark"],
+          "enum": [
+            "system",
+            "light",
+            "dark"
+          ],
           "title": "Theme",
           "type": "string"
         },
         "units": {
           "default": "si",
           "description": "Unit system used when displaying physical quantities.",
-          "enum": ["si", "imperial"],
+          "enum": [
+            "si",
+            "imperial"
+          ],
           "title": "Units",
           "type": "string"
         }
@@ -1406,14 +1592,23 @@
         "navigation": {
           "default": "follow",
           "description": "`follow`: the object follows the hand when you drag, and rolling the wheel away from you zooms in, as in ParaView. `camera`: drags move the camera instead. `custom`: the three switches below.",
-          "enum": ["follow", "camera", "custom"],
+          "enum": [
+            "follow",
+            "camera",
+            "custom"
+          ],
           "title": "Navigation style",
           "type": "string"
         },
         "probe_cursor": {
           "default": "crosshair",
           "description": "Pointer shown over a 3D or 2D view while it reads the value under it. Dragging always shows the grabbing hand.",
-          "enum": ["crosshair", "arrow", "cell", "hand"],
+          "enum": [
+            "crosshair",
+            "arrow",
+            "cell",
+            "hand"
+          ],
           "title": "Probe cursor",
           "type": "string"
         }

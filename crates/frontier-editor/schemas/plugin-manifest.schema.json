@@ -10,7 +10,11 @@
     },
     "kind": {
       "type": "string",
-      "enum": ["connector", "exporter", "importer"]
+      "enum": [
+        "connector",
+        "exporter",
+        "importer"
+      ]
     },
     "name": {
       "type": "string"
@@ -167,7 +171,13 @@
     }
   },
   "additionalProperties": false,
-  "required": ["id", "kind", "name", "version", "data_model_version"],
+  "required": [
+    "id",
+    "kind",
+    "name",
+    "version",
+    "data_model_version"
+  ],
   "$defs": {
     "OptionalDependency": {
       "type": "object",
@@ -193,7 +203,9 @@
         }
       },
       "additionalProperties": false,
-      "required": ["package"]
+      "required": [
+        "package"
+      ]
     },
     "ExporterSpec": {
       "type": "object",
@@ -215,7 +227,9 @@
         }
       },
       "additionalProperties": false,
-      "required": ["vendor"]
+      "required": [
+        "vendor"
+      ]
     },
     "AuthDeclaration": {
       "type": "object",
@@ -269,7 +283,10 @@
         }
       },
       "additionalProperties": false,
-      "required": ["id", "title"]
+      "required": [
+        "id",
+        "title"
+      ]
     },
     "AuthField": {
       "type": "object",
@@ -297,7 +314,9 @@
         }
       },
       "additionalProperties": false,
-      "required": ["name"]
+      "required": [
+        "name"
+      ]
     }
   },
   "description": "plugin.toml shipped by every Frontier plugin distribution."
