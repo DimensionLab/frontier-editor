@@ -1,0 +1,55 @@
+[package]
+name = "frontier-editor-view"
+description = "GPU (wgpu) text view for the Frontier editor core: virtualised rendering of documents, diffs and multi-million-line logs with a glyph atlas, drawn into the host's render pass"
+version.workspace = true
+edition.workspace = true
+license = "Apache-2.0"
+authors.workspace = true
+repository.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+frontier-editor = { path = "../frontier-editor", version = "0.9.0", default-features = false }
+wgpu.workspace = true
+bytemuck = { version = "1.25", features = ["derive"] }
+cosmic-text = { version = "0.19", default-features = false, features = ["std", "swash"] }
+tracing.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+# Native hosts get the tree-sitter grammars; wasm uses the core's lexer fallback.
+frontier-editor = { path = "../frontier-editor", version = "0.9.0", features = ["schema", "lang-json", "lang-yaml", "lang-toml", "lang-python", "lang-markdown", "lang-rust", "lang-shell"] }
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+frontier-editor = { path = "../frontier-editor", version = "0.9.0", features = ["schema"] }
+wasm-bindgen = { version = "0.2", optional = true }
+wasm-bindgen-futures = { version = "0.4", optional = true }
+# not optional: the view reads the clock through it on wasm32 with or without `web`
+js-sys = "0.3"
+console_error_panic_hook = { version = "0.1", optional = true }
+web-sys = { version = "0.3", optional = true, features = [
+    "Window", "Document", "Element", "HtmlElement", "HtmlCanvasElement", "HtmlTextAreaElement",
+    "CssStyleDeclaration", "KeyboardEvent", "InputEvent", "CompositionEvent", "MouseEvent",
+    "PointerEvent", "WheelEvent", "ClipboardEvent", "DataTransfer", "EventTarget", "Event",
+    "DomRect", "Performance", "Navigator", "Clipboard", "FocusEvent",
+] }
+
+[target.'cfg(not(target_arch = "wasm32"))'.dev-dependencies]
+winit = { version = "0.30", default-features = false, features = ["rwh_06"] }
+pollster.workspace = true
+tracing-subscriber.workspace = true
+
+[features]
+default = []
+# `<frontier-editor>`-style browser host: canvas + hidden textarea, exported through wasm-bindgen.
+web = ["dep:wasm-bindgen", "dep:wasm-bindgen-futures", "dep:web-sys", "dep:console_error_panic_hook"]
+
+[[example]]
+name = "native"
+
+[[bench]]
+name = "view"
+harness = false

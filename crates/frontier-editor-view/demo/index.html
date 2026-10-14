@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Frontier editor view demo</title>
+<style>
+  :root { --bg-0:#0a0c10; --bg-1:#0f1218; --bg-2:#151a22; --fg-0:#eef1f6; --fg-1:#c5cbd6; --fg-2:#8d95a5; --accent:#6ea0ff; --line-2:rgba(255,255,255,0.11); --font-ui:Inter,system-ui,sans-serif; --font-mono:"JetBrains Mono",ui-monospace,Menlo,monospace; }
+  :root[data-theme="light"] { --bg-0:#f3f5f8; --bg-1:#fff; --bg-2:#fff; --fg-0:#0f1420; --fg-1:#2d3545; --fg-2:#5b6474; --accent:#2f6fed; --line-2:rgba(16,24,40,0.13); }
+  html,body { margin:0; height:100%; background:var(--bg-0); color:var(--fg-1); font:13px/1.4 var(--font-ui); }
+  body { display:flex; flex-direction:column; }
+  header { display:flex; gap:8px; align-items:center; padding:8px 12px; border-bottom:1px solid var(--line-2); background:var(--bg-1); flex-wrap:wrap; flex:none; }
+  button { background:var(--bg-2); color:var(--fg-0); border:1px solid var(--line-2); border-radius:4px; padding:4px 10px; cursor:pointer; font:inherit; }
+  button[aria-pressed="true"] { border-color:var(--accent); color:var(--accent); }
+  #editor { position:relative; flex:1; min-height:0; }
+  footer { flex:none; height:28px; display:flex; align-items:center; gap:16px; padding:0 12px; font-family:var(--font-mono); font-size:11px; color:var(--fg-2); border-top:1px solid var(--line-2); background:var(--bg-1); }
+  #events { max-width:40vw; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+</style>
+</head>
+<body>
+<header>
+  <strong>frontier-editor-view</strong>
+  <button id="b-config" aria-pressed="true">config.yaml</button>
+  <button id="b-recipe">recipe proposal (hunks)</button>
+  <button id="b-log">5M-line log</button>
+  <span style="flex:1"></span>
+  <button id="b-sbs">side-by-side</button>
+  <button id="b-theme">light</button>
+  <button id="b-zoom">zoom 1.0</button>
+  <button id="b-save">save (Cmd+S)</button>
+  <button id="b-apply">apply hunks (Cmd+Enter)</button>
+</header>
+<div id="editor"></div>
+<footer><span id="stats">starting…</span><span id="events"></span></footer>
+<script type="module">
+import init, { WebEditor } from "./pkg/frontier_editor_view.js";
+await init();
+const el = document.getElementById("editor");
+const ed = new WebEditor(el, "dark");
+try { await ed.init_gpu(); } catch (e) { document.getElementById("stats").textContent = "WebGPU unavailable: " + e; throw e; }
+
+const CONFIG = `# Frontier training config (frontier_train.config.Config)
+task: surface
+data:
+  path: datasets/ahmedml-500
+  target_field: pMean
+  num_points: 32768
+  point_features: [normals]
+  batch_size: 4
+model:
+  name: physicsnemo.figconvnet
+  params:
+    hidden_channels: [48, 96, 128]
+    num_levels: 2
+optim:
+  lr: 0.001
+  schedule: cosine
+  warmup_steps: 300
+train:
+  epochs: 400
+  max_steps: 12000
+  out_dir: runs/demo
+  amp: true
+logging:
+  project: ahmedml-500
+  tags: [ahmedml, surface-pressure]
+`;
+const RECIPE = JSON.stringify({
+  name: "clean-ahmed", version: "1.0", description: "normalise fields before training",
+  steps: [
+    { op: "prep.fields.rename", params: { mapping: { p: "pMean" } }, message: "canonical name" },
+    { op: "prep.fields.nan_fix", params: { fields: ["pMean"], strategy: "drop" } },
+    { op: "prep.dataset.split", params: { family: "random", ratios: [0.8, 0.1, 0.1], seed: 0 } }
+  ],
+  created_by: { type: "agent", id: "prep-agent" }
+}, null, 2) + "\n";
+const RECIPE_PROPOSED = RECIPE
+  .replace('"strategy": "drop"', '"strategy": "interpolate"')
+  .replace('"seed": 0', '"seed": 42')
+  .replace('    { op: "prep.dataset.split"', '    { op: "prep.dataset.split"');
+const RECIPE_PROPOSED2 = RECIPE_PROPOSED.replace(']\n}', '  ,\n    { "op": "prep.quality.check", "params": { "checks": ["nan", "range"] } }\n  ]\n}');
+
+const pressed = (id) => { for (const b of document.querySelectorAll("header button")) b.setAttribute("aria-pressed", b.id === id); };
+const log = (m) => { document.getElementById("events").textContent = m; console.log(m); };
+ed.set_on_event((ev) => {
+  if (ev.type === "save") { const e = ed.save("demo-user"); log(`EditEvent ${e.before_hash.slice(7, 15)} → ${e.after_hash.slice(7, 15)}, ${e.hunks.length} hunks`); }
+  else if (ev.type === "apply") { const a = ed.finish_review("demo-user"); if (a) log(`ApprovalEvent accepted ${a.accepted_hunks.length}, rejected ${a.rejected_hunks.length}, result ${a.result_hash.slice(7, 15)}`); }
+  else log(`event ${ev.type} ${ev.data ?? ""}`);
+});
+document.getElementById("b-config").onclick = () => { pressed("b-config"); ed.open("packages/frontier-train/configs/demo.yaml", CONFIG); ed.focus(); };
+document.getElementById("b-recipe").onclick = () => { pressed("b-recipe"); ed.open("datasets/ahmed/recipes/clean.recipe.json", RECIPE); ed.review(RECIPE_PROPOSED2); ed.focus(); };
+document.getElementById("b-log").onclick = () => { pressed("b-log"); ed.open_synthetic_log(5_000_000); ed.focus(); };
+document.getElementById("b-sbs").onclick = (e) => { const on = e.target.getAttribute("aria-pressed") !== "true"; e.target.setAttribute("aria-pressed", on); ed.set_diff_mode(on ? "side-by-side" : "inline"); };
+document.getElementById("b-theme").onclick = (e) => { const light = document.documentElement.dataset.theme !== "light"; document.documentElement.dataset.theme = light ? "light" : ""; ed.set_theme(light ? "light" : "dark"); e.target.textContent = light ? "dark" : "light"; };
+let zoom = 1.0;
+document.getElementById("b-zoom").onclick = (e) => { zoom = zoom >= 2.0 ? 0.6 : +(zoom + 0.35).toFixed(2); ed.set_transform(zoom); e.target.textContent = `zoom ${zoom}`; };
+document.getElementById("b-save").onclick = () => { const e = ed.save("demo-user"); log(`EditEvent ${e?.hunks?.length ?? 0} hunks`); };
+document.getElementById("b-apply").onclick = () => { const a = ed.finish_review("demo-user"); log(a ? `ApprovalEvent accepted ${a.accepted_hunks.length}` : "not in review"); };
+ed.open("packages/frontier-train/configs/demo.yaml", CONFIG);
+ed.focus();
+setInterval(() => { const s = ed.stats(); document.getElementById("stats").textContent =
+  `rows ${s.rows} · glyphs ${s.glyphs} · build ${s.build_ms.toFixed(2)} ms · frame ${s.frame_ms.toFixed(2)} ms · atlas ${s.atlas_glyphs} glyphs / ${s.atlas_kb.toFixed(0)} KB · scroll ${s.scroll_row.toFixed(0)}`; }, 500);
+// scroll-fps probe for the README: window.__scrollBench() scrolls the log for 3 s and reports frames/s
+window.__scrollBench = () => new Promise((resolve) => { const s0 = ed.stats().frames, t0 = performance.now(); let row = 0; const id = setInterval(() => { row += 3; ed.scroll_to_row(row); }, 8); setTimeout(() => { clearInterval(id); const s1 = ed.stats(); resolve({ fps: (s1.frames - s0) / ((performance.now() - t0) / 1000), frame_ms: s1.frame_ms }); }, 3000); });
+</script>
+</body>
+</html>
